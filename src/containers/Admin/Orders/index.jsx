@@ -10,19 +10,25 @@ import { api } from '../../../services/api'
 
 import { Row }  from './row';
 import { useEffect, useState } from 'react';
+import { orderStatusSelect } from './orderStatusSelect';
+import { Filter, FilterOption } from './styles';
 
 
 
 export function Orders() {
 
   const [ orders, setOrders] = useState([]);
+  const [ filteredOrders, setFilteredOrders] = useState([]);
+  const [ activeStatus, setActiveStatus] = useState([0]);
+
   const [ rows, setRows] = useState([]);
 
     useEffect(() => {
       async function loadOrders() {
         const { data } = await api.get("orders")
 
-        setOrders(data)
+        setOrders(data);
+        setFilteredOrders(data);
       }
 
       loadOrders()
@@ -40,19 +46,47 @@ export function Orders() {
     }
 
     useEffect(() => {
-      const newRows = orders.map( (order) => createData(order));
+      const newRows = filteredOrders.map( (order) => createData(order));
 
-      setRows(newRows)
+      setRows(newRows);
+    }, [filteredOrders])
+
+    function handleStatus(status) {
+      if( status.id === 0) {
+        setFilteredOrders(orders);
+      } else {
+        const newOrders = orders.filter( (order) => order.status === status.value);
+
+        setFilteredOrders(newOrders);
+      }
+
+      setActiveStatus(status.id)
+    }
+
+    useEffect(() => {
+        if(activeStatus === 0) {
+          setFilteredOrders(orders);
+        } else {
+          const statusIndex = orderStatusSelect.findIndex( (item) => item.id === activeStatus,)
+
+          const newFilteredOrders = orders.filter( (order) => order.status === orderStatusSelect[statusIndex].value,);
+
+          setFilteredOrders(newFilteredOrders)
+        };
     }, [orders])
-
-    
 
   return (
     <>
     <Filter>
-      <FilterOption>
-
-      </FilterOption>
+      {orderStatusSelect.map( (status) => (
+          <FilterOption 
+          $isActiveStatus={activeStatus === status.id}
+          key={status.id} 
+          onClick={() => handleStatus(status)}>
+               {status.label}          
+          </FilterOption>
+      ))}
+      
     </Filter>
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">

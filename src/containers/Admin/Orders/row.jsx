@@ -15,7 +15,6 @@ import { formatDate } from '../../../utils/formatData';
 import { ProductImg, SelectStatus } from './styles';
 import { orderStatusSelect } from './orderStatusSelect';
 import { api } from '../../../services/api';
-import { TruckTrailer } from '@phosphor-icons/react/dist/ssr';
 
 
 export function Row({ row, setOrders, orders}) {
@@ -62,6 +61,7 @@ export function Row({ row, setOrders, orders}) {
               defaultValue={orderStatusSelect.find( (status) => status.value === row.status)}
               onChange={ status => newStatusOrder(row.orderId, status.value)}
               isLoading={loading}
+              menuPortalTarget={document.body}
               />
           </TableCell>
         </TableRow>
