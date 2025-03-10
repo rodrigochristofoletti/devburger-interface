@@ -67,10 +67,16 @@ export function Orders() {
         if(activeStatus === 0) {
           setFilteredOrders(orders);
         } else {
-          const statusIndex = orderStatusSelect.findIndex( (item) => item.id === activeStatus,)
-
-          const newFilteredOrders = orders.filter( (order) => order.status === orderStatusSelect[statusIndex].value,);
-
+          const statusIndex = orderStatusSelect.findIndex( (item) => item.id === activeStatus)
+          
+          if (statusIndex === -1) {
+            console.error("Invalid activeStatus:", activeStatus);
+            return; // Exit early to avoid errors
+        }
+          
+          console.log(statusIndex)
+          const newFilteredOrders = orders.filter( (order) => order.status === orderStatusSelect[statusIndex].value);
+          console.log(newFilteredOrders)
           setFilteredOrders(newFilteredOrders)
         };
     }, [orders])
