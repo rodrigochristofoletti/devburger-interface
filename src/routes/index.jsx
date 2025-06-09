@@ -1,9 +1,10 @@
 import {  Route, Routes } from "react-router-dom";
-import {  Cart, EditProducts, Home, Login, Menu, NewProduct, Orders, Products, SignUp } from "../containers";
+import {  Cart, Contacts, EditProducts, Home, Login, Menu, NewProduct, Orders, Products, SignUp } from "../containers";
 import { CheckOut } from "../containers/Checkout";
 import { CompletePage } from "../containers/CompletePayment";
 import { UserLayout } from "../layouts/userLayout";
 import { AdminLayout } from "../layouts/adminLayout";
+
 
 export function Router(){
     return (
@@ -15,6 +16,7 @@ export function Router(){
             <Route path="/checkOut" element={<CheckOut />} />
             <Route path="/completedPayment" element={<CompletePage />} />
             <Route path="/checkOut" element={<CheckOut />} />
+            <Route path="/contacts" element={<Contacts/>} />
         </Route>
 
         <Route path="/admin" element={<AdminLayout />}>

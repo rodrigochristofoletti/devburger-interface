@@ -5,6 +5,7 @@ export * from "./sign-up";
 export * from "./menu";
 export * from "./Checkout";
 export * from "./CompletePayment";
+export * from "./Contacts";
 
 //ADMIN 
 export * from "./Admin/EditProducts";

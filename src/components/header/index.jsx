@@ -24,7 +24,7 @@ export function Header () {
         Home
     </HeaderLink>
     <hr></hr>
-    <HeaderLink>
+    <HeaderLink to= "/contacts" $isActive = {pathname === "/contacts"}>
         Contacts
     </HeaderLink>
     <hr></hr>
